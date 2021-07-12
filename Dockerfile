@@ -1,16 +1,16 @@
-# FROM openapitools/openapi-generator-cli:latest-release AS openapi
+FROM openapitools/openapi-generator-cli:latest-release AS openapi
 
-# RUN mkdir /spec
+RUN mkdir /spec
 
-# COPY ./spec/openapi.yml /spec
+COPY ./spec/reference/diving-map.yaml /spec
 
-# RUN generate -i /spec/openapi.yml -g ruby -o /local
+RUN docker-entrypoint.sh generate -i /spec/diving-map.yaml -g ruby-on-rails -o /local
 
 FROM ruby:2.7.1-alpine
 
 ENV BUNDLE_PATH=/bundle/vendor
 
-WORKDIR /app
+WORKDIR /diving
 
 RUN apk update && \
     apk add libxml2-dev \
@@ -24,12 +24,12 @@ RUN apk update && \
     postgresql-client \
     --no-cache
 
-COPY Gemfile Gemfile.lock /app
+COPY Gemfile Gemfile.lock /diving
 
 RUN gem update && \
     bundle install -j18 && \
     bundle update
 
-# COPY --from=openapi /local /diving/app/openapi
+COPY --from=openapi /local /diving/app/openapi
 
 EXPOSE 3000

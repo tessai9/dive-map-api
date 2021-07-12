@@ -11,12 +11,25 @@ services:
     ports:
       - 3000:3000
     volumes:
-      - .:/app
+      - .:/diving
       - bundles:/bundle
+      - openapi_code:/diving/app/openapi
     links:
       - db
     depends_on:
       - db
+      - generator
+
+  generator:
+    image: openapitools/openapi-generator-cli:latest-release
+    command: |
+      generate
+      -i /spec/diving-map.yaml
+      -g ruby-on-rails
+      -o /openapi
+    volumes:
+      - ./spec/reference:/spec
+      - ./app/openapi:/openapi
 
   db:
     image: postgres:9.6.22-alpine
@@ -30,4 +43,5 @@ services:
 
 volumes:
   bundles:
+  openapi_code:
   db_data:
