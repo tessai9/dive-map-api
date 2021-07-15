@@ -13,23 +13,19 @@ services:
     volumes:
       - .:/diving
       - bundles:/bundle
-      - openapi_code:/diving/app/openapi
     links:
       - db
     depends_on:
       - db
-      - generator
 
-  generator:
-    image: openapitools/openapi-generator-cli:latest-release
-    command: |
-      generate
-      -i /spec/diving-map.yaml
-      -g ruby-on-rails
-      -o /openapi
+  doc:
+    image: swaggerapi/swagger-ui
     volumes:
-      - ./spec/reference:/spec
-      - ./app/openapi:/openapi
+      - ./openapi/reference/diving-map.yaml:/usr/share/nginx/html/diving-map.yaml
+    environment:
+      API_URL: diving-map.yaml
+    ports:
+      - 8081:8080
 
   db:
     image: postgres:9.6.22-alpine

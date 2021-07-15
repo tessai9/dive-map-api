@@ -1,3 +1,6 @@
 [submodule "spec"]
 	path = spec
 	url = git@github.com:tessai9/dive-map-api-spec.git
+[submodule "openapi"]
+	path = openapi
+	url = git@github.com:tessai9/dive-map-api.git
