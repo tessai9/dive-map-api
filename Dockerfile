@@ -16,7 +16,7 @@ RUN apk update && \
     postgresql-client \
     --no-cache
 
-COPY Gemfile Gemfile.lock /diving
+COPY Gemfile Gemfile.lock /diving/
 
 RUN gem update && \
     bundle install -j18 && \
