@@ -18,7 +18,7 @@ RUN apk update && \
 
 COPY Gemfile Gemfile.lock /diving/
 
-RUN gem update && \
+RUN gem update bundler && \
     bundle install -j18 && \
     bundle update
 
