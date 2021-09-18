@@ -1,2 +1,2 @@
 json.result @name
-json.message @message if @message.present
+json.message @message if @message.present?

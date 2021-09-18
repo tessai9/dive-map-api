@@ -7,7 +7,7 @@ services:
       TZ: 'Asia/Tokyo'
       BUNDLE_PATH: /bundle/vendor
       DATABASE_URL: 'postgresql://tesao:tesao@db:5432'
-    command: /bin/sh -c "rm -f /diving/tmp/pids/server.pid && bundle exec rails s"
+    command: /bin/sh -c "rm -f /diving/tmp/pids/server.pid && bundle exec rails s -b 0.0.0.0"
     ports:
       - 3000:3000
     volumes:

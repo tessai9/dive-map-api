@@ -1,28 +1,26 @@
 class UsersController < ApplicationController
-  before_action :set_user, only: %i[show update delete]
+  before_action :set_user, only: %i[show update destroy]
 
-  # GET /users/{:userId}
+  # GET /users/{userId}
   def show
     render formats: :json, handlers: :jbuilder
   end
 
   # POST /user
   def create
-    @user = User.new(user_params)
-
-    @user.save
-    render formats: :json, handlers: :jbuilder, template: 'shared/result'
+    User.create!(user_params)
+    success
   end
 
   # PATCH /users/{userId}
   def update
-    @user.update(user_params)
+    @user.update!(user_params)
     success
   end
 
-  # Delete /users/{userId}
-  def delete
-    @user.destroy
+  # DELETE /users/{userId}
+  def destroy
+    @user.destroy!
     success
   end
 

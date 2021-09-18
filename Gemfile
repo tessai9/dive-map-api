@@ -32,6 +32,7 @@ group :development, :test do
   gem 'rubocop-rails', '~> 2.11'
   gem 'factory_bot_rails', '~> 6.2'
   gem 'ffaker', '~> 2.18'
+  gem 'pry-rails'
 end
 
 group :development do
