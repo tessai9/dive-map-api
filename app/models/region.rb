@@ -20,4 +20,9 @@ class Region < ApplicationRecord
   belongs_to :prefecture, optional: false
 
   delegate :name, to: :prefecture, prefix: true
+
+  with_options presence: true do
+    validates :name
+    validates :prefecture
+  end
 end

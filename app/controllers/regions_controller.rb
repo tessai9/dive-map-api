@@ -19,7 +19,7 @@ class RegionsController < ApplicationController
 
   # POST /region
   def create
-    bad_request and return if region_params[:prefecture].nil? || region_params[:name].nil?
+    bad_request and return if params_valid?
     Region.create!({
                      name: region_params[:name],
                      prefecture: Prefecture.find(region_params[:prefecture])
@@ -29,7 +29,7 @@ class RegionsController < ApplicationController
 
   # PATCH /regions/{regionId}
   def update
-    bad_request and return if region_params[:prefecture].nil? || region_params[:name].nil?
+    bad_request and return if params_valid?
     @region.update!({
                      name: region_params[:name],
                      prefecture: Prefecture.find(region_params[:prefecture])
@@ -47,6 +47,10 @@ class RegionsController < ApplicationController
 
   def region_params
     params.require(:region).permit(:name, :prefecture)
+  end
+
+  def params_valid?
+    region_params[:prefecture].nil? || region_params[:name].nil?
   end
 
   def set_region
