@@ -9,6 +9,7 @@ RUN apk update && \
     curl-dev \
     make \
     gcc \
+    less \
     libc-dev \
     g++ \
     tzdata \
