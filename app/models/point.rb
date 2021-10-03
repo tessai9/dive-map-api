@@ -20,7 +20,7 @@
 class Point < ApplicationRecord
   belongs_to :region, optional: false
 
-  delegate :name, to: region, prefix: true
+  delegate :name, to: :region, prefix: true
 
   with_options presence: true do
     validates :name
