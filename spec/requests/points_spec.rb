@@ -30,4 +30,25 @@ RSpec.describe "Points", type: :request do
       expect(json_data[:point_map]).to eq(sample_point.point_map)
     end
   end
+
+  describe "POST /regions/:region_id/point" do
+    it 'valid request' do
+      valid_params = {
+        name: "南部だし"
+      }
+      post "/regions/#{sample_region.id}/point", params: { point: valid_params }
+      json_data = JSON.parse(response.body, symbolize_names: true)
+
+      expect(response.status).to eq(200)
+      expect(json_data[:result]).to eq('ok')
+    end
+
+    it 'invalid request(empty name)' do
+      invalid_params = { name: '' }
+      post "/regions/#{sample_region.id}/point", params: { point: invalid_params }
+      json_data = JSON.parse(response.body, symbolize_names: true)
+
+      expect(response.status).to eq(400)
+    end
+  end
 end

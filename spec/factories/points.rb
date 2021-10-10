@@ -19,7 +19,7 @@
 #
 FactoryBot.define do
   factory :point do
-    name { FFaker::AddressJA.street }
+    name { "Wアーチ" }
     point_map { "point_map.png" }
     association :region
   end

@@ -1,29 +1,29 @@
 class PointsController < ApplicationController
-  before_action :set_region
+  before_action :set_region, only: %i[index show create]
   before_action :set_point, only: %i[show update destroy]
 
-  # GET /region/{regionId}/point
+  # GET /regions/{regionId}/point
   def index
     @points = Point.where(region: @region)
 
     render formats: :json, handlers: :jbuilder
   end
 
-  # GET /region/{regionId}/points/{pointId}
+  # GET /regions/{regionId}/points/{pointId}
   def show
     render formats: :json, handlers: :jbuilder
   end
 
-  # POST /region/{regionId}/point
+  # POST /regions/{regionId}/point
   def create
-    new_point = Point.new(region_params)
-    bad_request if new_point.invalid?
+    new_point = @region.points.new(point_params)
+    bad_request and return if new_point.invalid?
 
     new_point.save!
     success
   end
 
-  # PATCH /region/{regionId}/point/{pointId}
+  # PATCH /regions/{regionId}/point/{pointId}
   def update
     @point.assign_attributes(point_params)
     bad_request if @point.invalid?
@@ -32,7 +32,7 @@ class PointsController < ApplicationController
     success
   end
 
-  # DELETE /region/{regionId}/points/{pointId}
+  # DELETE /regions/{regionId}/points/{pointId}
   def destroy
     @point.destroy!
     success
