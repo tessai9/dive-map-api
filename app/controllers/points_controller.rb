@@ -4,7 +4,7 @@ class PointsController < ApplicationController
 
   # GET /region/{regionId}/point
   def index
-    @points = Point.find_by(region: @region)
+    @points = Point.where(region: @region)
 
     render formats: :json, handlers: :jbuilder
   end
@@ -38,14 +38,22 @@ class PointsController < ApplicationController
     success
   end
 
+  # def update_point_image
+  #   # set point object from db
+  #   # get image from request
+  #   # update s3
+  #   # add or update image url for model
+  #   # return response
+  # end
+
   private
 
   def set_region
-    @region = Region.find(params[:region])
+    @region = Region.find(params[:region_id])
   end
 
   def set_point
-    @point = Point.find(params[:point])
+    @point = Point.find(params[:id])
   end
 
   def point_params

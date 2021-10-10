@@ -19,8 +19,8 @@
 #
 FactoryBot.define do
   factory :point do
-    name { "MyString" }
-    point_map { "MyString" }
-    region { nil }
+    name { FFaker::AddressJA.street }
+    point_map { "point_map.png" }
+    association :region
   end
 end
