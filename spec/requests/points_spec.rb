@@ -51,4 +51,33 @@ RSpec.describe "Points", type: :request do
       expect(response.status).to eq(400)
     end
   end
+
+  describe "PATCH /regions/:region_id/points/:id" do
+    it 'valid request' do
+      valid_params = {
+        name: '内浦ビーチ',
+      }
+      patch region_point_path(sample_region, sample_point), params: { point: valid_params }
+      json_data = JSON.parse(response.body, symbolize_names: true)
+
+      expect(response.status).to eq(200)
+      expect(json_data[:result]).to eq('ok')
+    end
+
+    it 'invalid request' do
+      invalid_params = {
+        name: ''
+      }
+      patch region_point_path(sample_region, sample_point), params: { point: invalid_params }
+
+      expect(response.status).to eq(400)
+    end
+  end
+
+  describe 'DELETE /regions/:region_id/points/:id' do
+    it 'valid request' do
+      delete region_point_path(sample_region, sample_point)
+      expect(response.status).to eq(200)
+    end
+  end
 end

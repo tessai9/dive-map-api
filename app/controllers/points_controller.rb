@@ -26,7 +26,7 @@ class PointsController < ApplicationController
   # PATCH /regions/{regionId}/point/{pointId}
   def update
     @point.assign_attributes(point_params)
-    bad_request if @point.invalid?
+    bad_request and return if @point.invalid?
 
     @point.save!
     success
