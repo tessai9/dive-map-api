@@ -18,6 +18,7 @@
 #
 class Region < ApplicationRecord
   belongs_to :prefecture, optional: false
+  has_many :points
 
   delegate :name, to: :prefecture, prefix: true
 

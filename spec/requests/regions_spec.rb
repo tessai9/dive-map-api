@@ -76,4 +76,11 @@ RSpec.describe "Regions", type: :request do
       expect(response.status).to eq(400)
     end
   end
+
+  describe 'DELETE /regions/:id' do
+    it 'valid request' do
+      delete region_path(single_region)
+      expect(response.status).to eq(200)
+    end
+  end
 end
