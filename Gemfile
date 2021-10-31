@@ -61,3 +61,5 @@ group :test do
   # for open api testing
   gem 'committee', '~> 4.4'
 end
+
+gem 'rack-cors', '~> 1.1', '>= 1.1.1'
