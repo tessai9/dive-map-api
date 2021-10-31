@@ -1,0 +1,48 @@
+require:
+  - rubocop-rails
+  - rubocop-rspec
+
+AllCops:
+  Exclude:
+    - 'bin/*'
+    - 'vendor/bundle/**/*'
+
+Layout/LineLength:
+  Description: This cop checks the length of lines in the source code. The maximum length is configurable.
+  Enabled: false
+
+Lint/AmbiguousBlockAssociation:
+  Description: This cop checks for ambiguous block association with method when param passed without parentheses.
+  Enabled: false
+
+Metrics/MethodLength:
+  Description: This cop checks if the length of a method exceeds some maximum value.
+  Enabled: false
+
+Style/Documentation:
+  Description: This cop checks for missing top-level documentation of classes and modules.
+  Enabled: false
+
+Metrics/BlockLength:
+  Description: This cop checks if the length of a block exceeds some maximum value.
+  Enabled: false
+
+RSpec/NotToNot:
+  Description: not_toでいい
+  Enabled: false
+
+RSpec/ExampleLength:
+  Description: 長い行のspecでもいい
+  Enabled: false
+
+RSpec/MultipleExpectations:
+  Description: 一つのit内に複数のexpectを入れたい
+  Enabled: false
+
+Style/NumericLiterals:
+  Description: number表記で3桁区切りはしない
+  Enabled: false
+
+Style/AsciiComments:
+  Description: 日本語のコメント等を使えるように
+  Enabled: false

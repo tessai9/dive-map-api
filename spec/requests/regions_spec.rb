@@ -1,9 +1,11 @@
+# frozen_string_literal: true
+
 require 'rails_helper'
 
-RSpec.describe "Regions", type: :request do
+RSpec.describe 'Regions', type: :request do
   let(:single_region) { create(:region) }
 
-  describe "GET /region" do
+  describe 'GET /region' do
     before do
       create_list :region, 10
     end
@@ -18,7 +20,7 @@ RSpec.describe "Regions", type: :request do
     end
   end
 
-  describe "GET /regions/:id" do
+  describe 'GET /regions/:id' do
     it 'valid request' do
       get region_path(single_region)
       json_data = JSON.parse(response.body, symbolize_names: true)
@@ -30,11 +32,11 @@ RSpec.describe "Regions", type: :request do
     end
   end
 
-  describe "POST /region" do
+  describe 'POST /region' do
     it 'valid request' do
       valid_params = {
         name: '白浜',
-        prefecture: single_region.prefecture_id,
+        prefecture: single_region.prefecture_id
       }
       post '/region', params: { region: valid_params }
       json_data = JSON.parse(response.body, symbolize_names: true)
@@ -45,16 +47,15 @@ RSpec.describe "Regions", type: :request do
 
     it 'invalid request(no prefecture)' do
       invalid_params = {
-        name: '串本',
+        name: '串本'
       }
       post '/region', params: { region: invalid_params }
-      json_data = JSON.parse(response.body, symbolize_names: true)
 
       expect(response.status).to eq(400)
     end
   end
 
-  describe "PATCH /regions/:id" do
+  describe 'PATCH /regions/:id' do
     it 'valid request' do
       valid_params = {
         name: '柏島',

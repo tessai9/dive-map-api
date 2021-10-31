@@ -1,3 +1,5 @@
+# frozen_string_literal: true
+
 # == Schema Information
 #
 # Table name: points
@@ -19,8 +21,8 @@
 #
 FactoryBot.define do
   factory :point do
-    name { "Wアーチ" }
-    point_map { "point_map.png" }
+    name { 'Wアーチ' }
+    point_map { 'point_map.png' }
     association :region
   end
 end

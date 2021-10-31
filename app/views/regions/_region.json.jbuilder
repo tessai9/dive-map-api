@@ -1,3 +1,5 @@
+# frozen_string_literal: true
+
 json.id region.id
 json.name region.name
 json.set! :prefecture do

@@ -1,3 +1,5 @@
+# frozen_string_literal: true
+
 # == Schema Information
 #
 # Table name: users
@@ -11,12 +13,16 @@
 #  created_at      :datetime         not null
 #  updated_at      :datetime         not null
 #
+# Indexes
+#
+#  index_users_on_email  (email) UNIQUE
+#
 FactoryBot.define do
   factory :user do
     name { FFaker::Name.name }
     password { SecureRandom.alphanumeric(8) }
     email { 'diving@example.com' }
-    birthday { "1994-02-23" }
+    birthday { '1994-02-23' }
 
     trait :admin_user do
       role { 0 }

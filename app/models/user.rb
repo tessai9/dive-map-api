@@ -1,3 +1,5 @@
+# frozen_string_literal: true
+
 # == Schema Information
 #
 # Table name: users
@@ -11,14 +13,18 @@
 #  created_at      :datetime         not null
 #  updated_at      :datetime         not null
 #
+# Indexes
+#
+#  index_users_on_email  (email) UNIQUE
+#
 class User < ApplicationRecord
   has_secure_password
 
   enum role: {
-         admin: 0,
-         official: 1,
-         common: 2
-       }
+    admin: 0,
+    official: 1,
+    common: 2
+  }
 
   with_options presence: true do
     validates :name
