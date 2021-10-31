@@ -1,3 +1,5 @@
+# frozen_string_literal: true
+
 class PointsController < ApplicationController
   before_action :set_region, only: %i[index show create]
   before_action :set_point, only: %i[show update destroy]

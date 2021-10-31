@@ -1,5 +1,6 @@
-class ApplicationController < ActionController::API
+# frozen_string_literal: true
 
+class ApplicationController < ActionController::API
   include ResponseConcern
 
   rescue_from StandardError, with: :internal_server_error

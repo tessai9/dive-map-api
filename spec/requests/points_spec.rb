@@ -1,10 +1,12 @@
+# frozen_string_literal: true
+
 require 'rails_helper'
 
-RSpec.describe "Points", type: :request do
+RSpec.describe 'Points', type: :request do
   let(:sample_region) { create(:region) }
   let(:sample_point) { create(:point, region: sample_region) }
 
-  describe "GET /region/:region_id/point" do
+  describe 'GET /region/:region_id/point' do
     before do
       create_list :point, 10, region: sample_region
     end
@@ -19,7 +21,7 @@ RSpec.describe "Points", type: :request do
     end
   end
 
-  describe "GET /regions/:region_id/points/:id" do
+  describe 'GET /regions/:region_id/points/:id' do
     it 'valid request' do
       get region_point_path(sample_region.id, sample_point.id)
       json_data = JSON.parse(response.body, symbolize_names: true)
@@ -31,10 +33,10 @@ RSpec.describe "Points", type: :request do
     end
   end
 
-  describe "POST /regions/:region_id/point" do
+  describe 'POST /regions/:region_id/point' do
     it 'valid request' do
       valid_params = {
-        name: "南部だし"
+        name: '南部だし'
       }
       post "/regions/#{sample_region.id}/point", params: { point: valid_params }
       json_data = JSON.parse(response.body, symbolize_names: true)
@@ -46,16 +48,15 @@ RSpec.describe "Points", type: :request do
     it 'invalid request(empty name)' do
       invalid_params = { name: '' }
       post "/regions/#{sample_region.id}/point", params: { point: invalid_params }
-      json_data = JSON.parse(response.body, symbolize_names: true)
 
       expect(response.status).to eq(400)
     end
   end
 
-  describe "PATCH /regions/:region_id/points/:id" do
+  describe 'PATCH /regions/:region_id/points/:id' do
     it 'valid request' do
       valid_params = {
-        name: '内浦ビーチ',
+        name: '内浦ビーチ'
       }
       patch region_point_path(sample_region, sample_point), params: { point: valid_params }
       json_data = JSON.parse(response.body, symbolize_names: true)
