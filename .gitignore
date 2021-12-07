@@ -46,3 +46,6 @@ yarn-debug.log*
 
 /app/openapi/*
 !/app/oepnapi/.keep
+
+# ignore application environments
+/config/application.yml
