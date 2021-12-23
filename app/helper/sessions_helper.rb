@@ -1,13 +1,15 @@
+# frozen_string_literal: true
+
 module SessionsHelper
   def logged_in?
     current_user.present?
   end
 
   def current_user
-    token = request.headers["Authorization"]
-    decoded_data = JWT.decode(token, hmac_secret, true, { algorism: 'HS256' })
+    token = request.headers['Authorization']
+    decoded_json = JWT.decode(token, hmac_secret, true, { algorism: 'HS256' })
     payload = decoded_json.first
-    User.find(payload["user_id"])
+    User.find(payload['user_id'])
   end
 
   def token(user_id)
@@ -15,8 +17,8 @@ module SessionsHelper
     # {
     #   user_id,
     #   exp,
-    #   iss,
-    #   sub
+    #   iss, # 検討中...
+    #   sub  # 検討中...
     # }
     payload = {
       user_id: user_id,
