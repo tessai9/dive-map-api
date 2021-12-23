@@ -11,4 +11,5 @@ Rails.application.routes.draw do
   end
   get :region, to: 'regions#index'
   post :region, to: 'regions#create'
+  post :login, to: 'sessions#create'
 end

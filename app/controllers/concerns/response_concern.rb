@@ -34,6 +34,13 @@ module ResponseConcern
     render status: :not_found, formats: :json, handlers: :jbuilder, template: 'shared/result'
   end
 
+  def unprocessable_entity(exception = nil)
+    print_exception_log(exception) if exception
+
+    failed(message: 'Unprocessable Entity')
+    render status: :unprocessable_entity, formats: :json, handlers: :jbuilder, template: 'shared/result'
+  end
+
   def internal_server_error(exception = nil)
     print_exception_log(exception) if exception
 
