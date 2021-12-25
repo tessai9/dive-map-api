@@ -29,8 +29,8 @@ class User < ApplicationRecord
   with_options presence: true do
     validates :name
     validates :email, uniqueness: true
-    validates :password, length: { minimum: 8 }
-    validates :role
+    validates :password, length: { minimum: 8 }, allow_blank: true
+    validates :role, if: :admin?
     validates :birthday
   end
 end

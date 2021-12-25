@@ -10,13 +10,13 @@ class UsersController < ApplicationController
 
   # POST /user
   def create
-    User.create!(user_params)
+    User.create!(permitted_attributes(User))
     success
   end
 
   # PATCH /users/{userId}
   def update
-    @user.update!(user_params)
+    @user.update!(permitted_attributes(User))
     success
   end
 
@@ -28,11 +28,7 @@ class UsersController < ApplicationController
 
   private
 
-  def user_params
-    params.require(:user).permit(:name, :password, :role, :email, :birthday)
-  end
-
   def set_user
-    @user = User.find(params[:id])
+    @user = policy_scope(User).find(params[:id])
   end
 end
