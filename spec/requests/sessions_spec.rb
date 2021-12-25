@@ -23,7 +23,7 @@ RSpec.describe 'Sessions', type: :request do
       json_data = JSON.parse(response.body, symbolize_names: true)
 
       expect(response.status).to eq(200)
-      expect(json_data[:result]).to eq('ok')
+      expect(json_data[:token]).to be_present
     end
 
     it 'with invalid parameters' do
