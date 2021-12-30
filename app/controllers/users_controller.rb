@@ -1,6 +1,7 @@
 # frozen_string_literal: true
 
 class UsersController < ApplicationController
+  before_action :authorize_user, only: %[create]
   before_action :set_user, only: %i[show update destroy]
 
   # GET /users/{userId}
@@ -16,7 +17,7 @@ class UsersController < ApplicationController
 
   # PATCH /users/{userId}
   def update
-    @user.update!(permitted_attributes(User))
+    @user.update!(permitted_attributes(@user))
     success
   end
 
@@ -28,7 +29,12 @@ class UsersController < ApplicationController
 
   private
 
+  def authorize_user
+    authorize User
+  end
+
   def set_user
     @user = policy_scope(User).find(params[:id])
+    authorize @user
   end
 end
