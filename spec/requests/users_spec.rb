@@ -8,7 +8,7 @@ RSpec.describe 'Users', type: :request do
   context 'when signed in as admin_user' do
     let(:user) { create :user, :admin_user }
     let(:valid_params) do
-      valid_params = {
+      {
         name: 'test',
         email: 'test@example.com',
         role: :common,
@@ -18,7 +18,7 @@ RSpec.describe 'Users', type: :request do
     end
 
     let(:invalid_params) do
-      invalid_params = {
+      {
         name: 'test',
         email: 'test@example.com',
         role: :common,

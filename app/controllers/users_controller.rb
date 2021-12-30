@@ -1,7 +1,7 @@
 # frozen_string_literal: true
 
 class UsersController < ApplicationController
-  before_action :authorize_user, only: %[create]
+  before_action :authorize_user, only: %(create)
   before_action :set_user, only: %i[show update destroy]
 
   # GET /users/{userId}

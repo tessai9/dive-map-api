@@ -1,3 +1,5 @@
+# frozen_string_literal: true
+
 class RegionPolicy < ApplicationPolicy
   def index?
     true
@@ -28,7 +30,7 @@ class RegionPolicy < ApplicationPolicy
   end
 
   def permitted_attributes
-    [:name, :prefecture_id]
+    %i[name prefecture_id]
   end
 
   class Scope < Scope
