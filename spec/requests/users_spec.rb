@@ -90,4 +90,61 @@ RSpec.describe 'Users', type: :request do
       end
     end
   end
+
+  context 'when signed in as official_user' do
+    let(:user) { create :user, :official_user }
+    let(:valid_params) do
+      {
+        name: 'test',
+        email: 'test@example.com',
+        role: :common,
+        password: 'password',
+        birthday: '2021-09-15'
+      }
+    end
+
+    describe 'GET /users/:id' do
+      it 'valid request' do
+        common = User.create! valid_params
+        get user_path(common)
+        json_data = JSON.parse(response.body, symbolize_names: true)
+
+        expect(response.status).to eq(403)
+      end
+    end
+
+    describe 'POST /users' do
+      it 'valid request' do
+        post '/user', params: { user: valid_params }
+        json_data = JSON.parse(response.body, symbolize_names: true)
+
+        expect(response.status).to eq(200)
+        expect(json_data[:result]).to eq('ok')
+      end
+    end
+
+    describe 'PATCH /users/:id' do
+      let(:new_params) do
+        {
+          name: 'sample name',
+          email: 'new@example.com'
+        }
+      end
+
+      it 'valid request' do
+        patch user_path(user), params: { user: new_params }
+        json_data = JSON.parse(response.body, symbolize_names: true)
+
+        expect(response.status).to eq(200)
+        expect(json_data[:result]).to eq('ok')
+      end
+    end
+
+    describe 'DELETE /users/:id' do
+      it 'valid request' do
+        delete user_path(user)
+        expect(response.status).to eq(403)
+      end
+    end
+  end
 end
