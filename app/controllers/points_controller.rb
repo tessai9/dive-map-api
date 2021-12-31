@@ -1,6 +1,7 @@
 # frozen_string_literal: true
 
 class PointsController < ApplicationController
+  before_action :authorize_point, only: %i[index create]
   before_action :set_region, only: %i[index show create]
   before_action :set_point, only: %i[show update destroy]
 
@@ -18,7 +19,7 @@ class PointsController < ApplicationController
 
   # POST /regions/{regionId}/point
   def create
-    new_point = @region.points.new(point_params)
+    new_point = @region.points.new(permitted_attributes(Point))
     bad_request and return if new_point.invalid?
 
     new_point.save!
@@ -27,7 +28,7 @@ class PointsController < ApplicationController
 
   # PATCH /regions/{regionId}/point/{pointId}
   def update
-    @point.assign_attributes(point_params)
+    @point.assign_attributes(permitted_attributes(@point))
     bad_request and return if @point.invalid?
 
     @point.save!
@@ -50,15 +51,17 @@ class PointsController < ApplicationController
 
   private
 
+  def authorize_point
+    authorize Point
+  end
+
   def set_region
     @region = Region.find(params[:region_id])
+    authorize @region
   end
 
   def set_point
     @point = Point.find(params[:id])
-  end
-
-  def point_params
-    params.require(:point).permit(:name, :point_map)
+    authorize @point
   end
 end

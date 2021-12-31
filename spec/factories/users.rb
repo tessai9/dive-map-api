@@ -21,7 +21,7 @@ FactoryBot.define do
   factory :user do
     name { FFaker::Name.name }
     password { SecureRandom.alphanumeric(8) }
-    sequence(:email) { |_n| "diver#{n}@example.com" }
+    sequence(:email) { |n| "diver#{n}@example.com" }
     birthday { '1994-02-23' }
 
     trait :admin_user do

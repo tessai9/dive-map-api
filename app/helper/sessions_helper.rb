@@ -7,9 +7,11 @@ module SessionsHelper
 
   def current_user
     authorization_token = request.headers['Authorization'].gsub!('Bearer ', '')
-    decoded_json = JWT.decode(authorization_token, hmac_secret, true, { algorithm: 'HS256' })
+    decoded_json = JWT.decode(authorization_token, hmac_secret, true, algorithm: 'HS256')
     payload = decoded_json.first
     User.find(payload['user_id'])
+  rescue JWT::DecodeError
+    nil
   end
 
   def token(user_id)
