@@ -6,7 +6,7 @@ class UserPolicy < ApplicationPolicy
   end
 
   def show?
-    admin? || (common? && record.id == user.id)
+    admin? || record.id == user.id
   end
 
   def new?
