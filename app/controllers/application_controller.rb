@@ -1,6 +1,7 @@
 # frozen_string_literal: true
 
 class ApplicationController < ActionController::API
+  include Pundit
   include ResponseConcern
   include SessionsHelper
 
@@ -10,4 +11,5 @@ class ApplicationController < ActionController::API
   rescue_from ActionView::Template::Error, with: :not_found
   rescue_from ActiveRecord::RecordNotFound, with: :not_found
   rescue_from JWT::VerificationError, with: :unauthorized
+  rescue_from Pundit::NotAuthorizedError, with: :forbidden
 end

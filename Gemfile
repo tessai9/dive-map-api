@@ -22,6 +22,7 @@ gem 'bcrypt', '~> 3.1.7'
 gem 'figaro', '~> 1.2'
 gem 'jwt', '~> 2.3'
 gem 'pg', '~> 1.2', '>= 1.2.3'
+gem 'pundit', '~> 2.1', '>= 2.1.1'
 gem 'ransack', '~> 2.4', '>= 2.4.2'
 
 # Reduces boot times through caching; required in config/boot.rb

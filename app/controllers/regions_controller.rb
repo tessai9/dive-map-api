@@ -1,14 +1,15 @@
 # frozen_string_literal: true
 
 class RegionsController < ApplicationController
+  before_action :authorize_region, only: %i[index create]
   before_action :set_region, only: %i[show update destroy]
 
   # GET /region(?prefecture=xxx)
   def index
     @regions = if params[:prefecture]
-                 Region.where(prefecture: params[:prefecture])
+                 policy_scope(Region).where(prefecture_id: params[:prefecture])
                else
-                 Region.all
+                 policy_scope(Region).all
                end
 
     render formats: :json, handlers: :jbuilder
@@ -21,23 +22,13 @@ class RegionsController < ApplicationController
 
   # POST /region
   def create
-    bad_request and return if params_valid?
-
-    Region.create!({
-                     name: region_params[:name],
-                     prefecture: Prefecture.find(region_params[:prefecture])
-                   })
+    Region.create!(permitted_attributes(Region))
     success
   end
 
   # PATCH /regions/{regionId}
   def update
-    bad_request and return if params_valid?
-
-    @region.update!({
-                      name: region_params[:name],
-                      prefecture: Prefecture.find(region_params[:prefecture])
-                    })
+    @region.update!(permitted_attributes(@region))
     success
   end
 
@@ -49,15 +40,12 @@ class RegionsController < ApplicationController
 
   private
 
-  def region_params
-    params.require(:region).permit(:name, :prefecture)
-  end
-
-  def params_valid?
-    region_params[:prefecture].nil? || region_params[:name].nil?
+  def authorize_region
+    authorize Region
   end
 
   def set_region
-    @region = Region.find(params[:id])
+    @region = policy_scope(Region).find(params[:id])
+    authorize @region
   end
 end

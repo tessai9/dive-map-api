@@ -46,3 +46,7 @@ Style/NumericLiterals:
 Style/AsciiComments:
   Description: 日本語のコメント等を使えるように
   Enabled: false
+
+RSpec/AnyInstance:
+  Description: allow_any_instance_ofを許可
+  Enabled: false
