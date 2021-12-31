@@ -105,9 +105,9 @@ RSpec.describe 'Users', type: :request do
 
     describe 'GET /users/:id' do
       it 'valid request' do
-        get user_path(official)
+        get user_path(user)
 
-        expect(response.status).to eq(403)
+        expect(response.status).to eq(200)
       end
     end
 
