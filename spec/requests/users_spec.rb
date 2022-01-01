@@ -43,7 +43,7 @@ RSpec.describe 'Users', type: :request do
 
     describe 'POST /users' do
       it 'valid request' do
-        post '/user', params: { user: valid_params }
+        post users_path, params: { user: valid_params }
         json_data = JSON.parse(response.body, symbolize_names: true)
 
         expect(response.status).to eq(200)
@@ -51,7 +51,7 @@ RSpec.describe 'Users', type: :request do
       end
 
       it 'bad request(invalid password)' do
-        post '/user', params: { user: invalid_params }
+        post users_path, params: { user: invalid_params }
 
         expect(response.status).to eq(400)
       end
@@ -113,7 +113,7 @@ RSpec.describe 'Users', type: :request do
 
     describe 'POST /users' do
       it 'valid request' do
-        post '/user', params: { user: valid_params }
+        post users_path, params: { user: valid_params }
         json_data = JSON.parse(response.body, symbolize_names: true)
 
         expect(response.status).to eq(200)
@@ -172,7 +172,7 @@ RSpec.describe 'Users', type: :request do
 
     describe 'POST /users' do
       it 'valid request' do
-        post '/user', params: { user: valid_params }
+        post users_path, params: { user: valid_params }
         json_data = JSON.parse(response.body, symbolize_names: true)
 
         expect(response.status).to eq(200)

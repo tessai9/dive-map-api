@@ -10,11 +10,11 @@ RSpec.describe 'Points', type: :request do
   context 'when signed in as admin_user' do
     let(:user) { create :user, :admin_user }
 
-    describe 'GET /region/:region_id/point' do
+    describe 'GET /region/:region_id/points' do
       it 'valid request' do
         region = create :region
         create_list :point, 10, region: region
-        get "/regions/#{region.id}/point"
+        get region_points_path(region)
         json_data = JSON.parse(response.body, symbolize_names: true)
 
         expect(response.status).to eq(200)
@@ -35,12 +35,12 @@ RSpec.describe 'Points', type: :request do
       end
     end
 
-    describe 'POST /regions/:region_id/point' do
+    describe 'POST /regions/:region_id/points' do
       it 'valid request' do
         valid_params = {
           name: '南部だし'
         }
-        post "/regions/#{sample_point.region.id}/point", params: { point: valid_params }
+        post region_points_path(sample_point.region), params: { point: valid_params }
         json_data = JSON.parse(response.body, symbolize_names: true)
 
         expect(response.status).to eq(200)
@@ -49,7 +49,7 @@ RSpec.describe 'Points', type: :request do
 
       it 'invalid request(empty name)' do
         invalid_params = { name: '' }
-        post "/regions/#{sample_point.region.id}/point", params: { point: invalid_params }
+        post region_points_path(sample_point.region), params: { point: invalid_params }
 
         expect(response.status).to eq(400)
       end
@@ -88,11 +88,11 @@ RSpec.describe 'Points', type: :request do
   context 'when signed in as official_user' do
     let(:user) { create :user, :official_user }
 
-    describe 'GET /region/:region_id/point' do
+    describe 'GET /region/:region_id/points' do
       it 'valid request' do
         region = create :region
         create_list :point, 10, region: region
-        get "/regions/#{region.id}/point"
+        get region_points_path(region)
         json_data = JSON.parse(response.body, symbolize_names: true)
 
         expect(response.status).to eq(200)
@@ -118,7 +118,7 @@ RSpec.describe 'Points', type: :request do
         valid_params = {
           name: '南部だし'
         }
-        post "/regions/#{sample_point.region.id}/point", params: { point: valid_params }
+        post region_points_path(sample_point.region), params: { point: valid_params }
         json_data = JSON.parse(response.body, symbolize_names: true)
 
         expect(response.status).to eq(200)
@@ -127,7 +127,7 @@ RSpec.describe 'Points', type: :request do
 
       it 'invalid request(empty name)' do
         invalid_params = { name: '' }
-        post "/regions/#{sample_point.region.id}/point", params: { point: invalid_params }
+        post region_points_path(sample_point.region), params: { point: invalid_params }
 
         expect(response.status).to eq(400)
       end
@@ -170,7 +170,7 @@ RSpec.describe 'Points', type: :request do
       it 'valid request' do
         region = create :region
         create_list :point, 10, region: region
-        get "/regions/#{region.id}/point"
+        get region_points_path(region)
         json_data = JSON.parse(response.body, symbolize_names: true)
 
         expect(response.status).to eq(200)
@@ -196,7 +196,7 @@ RSpec.describe 'Points', type: :request do
         valid_params = {
           name: '南部だし'
         }
-        post "/regions/#{sample_point.region.id}/point", params: { point: valid_params }
+        post region_points_path(sample_point.region), params: { point: valid_params }
 
         expect(response.status).to eq(403)
       end
