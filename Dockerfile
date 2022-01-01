@@ -1,4 +1,4 @@
-FROM ruby:2.7.1-alpine
+FROM ruby:3.0.3-alpine
 
 ENV BUNDLE_PATH=/bundle/vendor
 
