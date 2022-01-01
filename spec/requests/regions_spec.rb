@@ -10,13 +10,13 @@ RSpec.describe 'Regions', type: :request do
   context 'when signed in as admin_user' do
     let(:user) { create :user, :admin_user }
 
-    describe 'GET /region' do
+    describe 'GET /regions' do
       before do
         create_list :region, 10
       end
 
       it 'valid request' do
-        get '/region'
+        get regions_path
         json_data = JSON.parse(response.body, symbolize_names: true)
 
         expect(response.status).to eq(200)
@@ -37,13 +37,13 @@ RSpec.describe 'Regions', type: :request do
       end
     end
 
-    describe 'POST /region' do
+    describe 'POST /regions' do
       it 'valid request' do
         valid_params = {
           name: '白浜',
           prefecture_id: single_region.prefecture_id
         }
-        post '/region', params: { region: valid_params }
+        post regions_path, params: { region: valid_params }
         json_data = JSON.parse(response.body, symbolize_names: true)
 
         expect(response.status).to eq(200)
@@ -54,7 +54,7 @@ RSpec.describe 'Regions', type: :request do
         invalid_params = {
           name: '串本'
         }
-        post '/region', params: { region: invalid_params }
+        post regions_path, params: { region: invalid_params }
 
         expect(response.status).to eq(400)
       end
@@ -101,7 +101,7 @@ RSpec.describe 'Regions', type: :request do
       end
 
       it 'valid request' do
-        get '/region'
+        get regions_path
 
         expect(response.status).to eq(200)
       end
@@ -125,7 +125,7 @@ RSpec.describe 'Regions', type: :request do
           name: '白浜',
           prefecture_id: single_region.prefecture_id
         }
-        post '/region', params: { region: valid_params }
+        post regions_path, params: { region: valid_params }
         json_data = JSON.parse(response.body, symbolize_names: true)
 
         expect(response.status).to eq(200)
@@ -136,7 +136,7 @@ RSpec.describe 'Regions', type: :request do
         invalid_params = {
           name: '串本'
         }
-        post '/region', params: { region: invalid_params }
+        post regions_path, params: { region: invalid_params }
 
         expect(response.status).to eq(400)
       end
@@ -177,13 +177,13 @@ RSpec.describe 'Regions', type: :request do
   context 'when signed in as common_user' do
     let(:user) { create :user, :common_user }
 
-    describe 'GET /region' do
+    describe 'GET /regions' do
       before do
         create_list :region, 10
       end
 
       it 'valid request' do
-        get '/region'
+        get regions_path
 
         expect(response.status).to eq(200)
       end
@@ -201,13 +201,13 @@ RSpec.describe 'Regions', type: :request do
       end
     end
 
-    describe 'POST /region' do
+    describe 'POST /regions' do
       it 'valid request' do
         valid_params = {
           name: '白浜',
           prefecture_id: single_region.prefecture_id
         }
-        post '/region', params: { region: valid_params }
+        post regions_path, params: { region: valid_params }
 
         expect(response.status).to eq(403)
       end
