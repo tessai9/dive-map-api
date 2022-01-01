@@ -49,8 +49,8 @@ jobs:
           name: run rubocop
           command: bundle exec rubocop
 
-      - run: bundle exec rails db:create
-      - run: bundle exec rails db:migrate
+      - run: bin/rails db:create
+      - run: bin/rails db:migrate
 
       - run:
           name: run rspec
