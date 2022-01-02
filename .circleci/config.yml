@@ -1,4 +1,4 @@
-version: '2.1'
+version: 2.1
 
 executors:
   default:
@@ -38,10 +38,10 @@ jobs:
       - run:
           name: install newest bundler
           command: gem install bundler --pre
+
       - run:
           name: install dependencies
-          command: |
-            bundle install --jobs=18 --retry=3 --path vendor/bundle
+          command: bundle install --jobs=18 --retry=3 --path vendor/bundle
 
       - save_cache:
           paths:
@@ -52,8 +52,8 @@ jobs:
           name: run rubocop
           command: bundle exec rubocop
 
-      - run: bin/rails db:create
-      - run: bin/rails db:migrate
+      - run: bundle exec rails db:create
+      - run: bundle exec rails db:migrate
 
       - run:
           name: run rspec
