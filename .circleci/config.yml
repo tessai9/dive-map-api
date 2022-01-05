@@ -32,8 +32,8 @@ jobs:
 
       - restore_cache:
           keys:
-          - v3-dependencies-{{ checksum "Gemfile.lock" }}
-          - v3-dependencies-
+          - v2-dependencies-{{ checksum "Gemfile.lock" }}
+          - v2-dependencies-
 
       - run:
           name: install newest bundler
@@ -46,7 +46,7 @@ jobs:
       - save_cache:
           paths:
             - ./vendor/bundle
-          key: v3-dependencies-{{ checksum "Gemfile.lock" }}
+          key: v2-dependencies-{{ checksum "Gemfile.lock" }}
 
       - run:
           name: run rubocop
