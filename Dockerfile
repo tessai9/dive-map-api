@@ -1,4 +1,4 @@
-FROM ruby:2.7.1-alpine
+FROM ruby:3.0.3-alpine
 
 ENV BUNDLE_PATH=/bundle/vendor
 
@@ -20,7 +20,6 @@ RUN apk update && \
 COPY Gemfile Gemfile.lock /diving/
 
 RUN gem update bundler && \
-    bundle install -j18 && \
-    bundle update
+    bundle install -j18
 
 EXPOSE 3000
