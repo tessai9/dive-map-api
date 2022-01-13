@@ -3,7 +3,7 @@ version: '2.1'
 executors:
   default:
     docker:
-      - image: circleci/ruby:2.7.1
+      - image: circleci/ruby:3.0.3
         environment:
           RAILS_ENV: test
           DATABASE_URL: postgresql://root:pass@127.0.0.1:5432
@@ -32,8 +32,8 @@ jobs:
 
       - restore_cache:
           keys:
-          - v1-dependencies-{{ checksum "Gemfile.lock" }}
-          - v1-dependencies-
+          - v2-dependencies-{{ checksum "Gemfile.lock" }}
+          - v2-dependencies-
 
       - run:
           name: install dependencies
@@ -43,7 +43,7 @@ jobs:
       - save_cache:
           paths:
             - ./vendor/bundle
-          key: v1-dependencies-{{ checksum "Gemfile.lock" }}
+          key: v2-dependencies-{{ checksum "Gemfile.lock" }}
 
       - run:
           name: run rubocop
